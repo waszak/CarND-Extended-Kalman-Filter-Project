@@ -32,11 +32,14 @@ class FusionEKF {
   KalmanFilter ekf_;
 
  private:
+  //UpdatesQ matrix with delta.
+  void UpdateQ(long long diff, double dt);
   // check whether the tracking toolbox was initialized or not (first measurement)
   bool is_initialized_;
 
   // previous timestamp
   long long previous_timestamp_;
+  long long previous_diff;
 
   // tool object used to compute Jacobian and RMSE
   Tools tools;
@@ -44,6 +47,8 @@ class FusionEKF {
   Eigen::MatrixXd R_radar_;
   Eigen::MatrixXd H_laser_;
   Eigen::MatrixXd Hj_;
+  float noise_ax;
+  float noise_ay;
 };
 
 #endif // FusionEKF_H_
